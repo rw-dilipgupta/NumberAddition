@@ -8,6 +8,9 @@ using AdditionOfNumbers.HeplerClasses;
 
 namespace AdditionOfNumbers.Controllers
 {
+    /// <summary>
+    /// Home Controller
+    /// </summary>
     public class HomeController : Controller
     {
         public ActionResult Index(SumModel sum)
@@ -23,7 +26,7 @@ namespace AdditionOfNumbers.Controllers
 
 
         /// <summary>
-        /// Add two integer numbers
+        /// Addition of two numbers
         /// </summary>
         /// <param name="sum"></param>
         /// <returns></returns>
@@ -34,14 +37,14 @@ namespace AdditionOfNumbers.Controllers
                 int FirstNumber = sum.FirstNumber;
                 int SecondNumber = sum.SecondNumber;
                 sum.Result = FirstNumber + SecondNumber;
+                return RedirectToAction("Index", sum);
             }
             catch (Exception ex)
             {
-                ViewBag.Message = "Error Occured";
                 HandleError.WriteError(ex);
-                throw;
+                return View("Error");
             }
-            return RedirectToAction("Index", sum);
+
         }
 
         public ActionResult Contact()
